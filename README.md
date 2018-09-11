@@ -1,6 +1,6 @@
 # ScheduleScraper
 
-Scrapes schedules from the Loblaw schedule website and exports the shift data to either Google Calendar or iCalendar compatible formats. 
+Currently there is no way to export schedules from Loblaw or FoodBasics employee websites. This application allows you to export your shifts and add them to widely used calendar applications. ScheduleScraper scrapes schedule information from the Loblaw website and exports the shift data to either Google Calendar or iCalendar compatible formats. 
 
 Running the application
 --------------------------
