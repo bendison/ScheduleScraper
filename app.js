@@ -3,6 +3,7 @@
 //Scrapes schedules from the Loblaw schedule website and exports the shift data to either Google Calendar or iCalendar
 const puppeteer = require('puppeteer');
 var args = require('yargs').argv;
+var data = [];
 
 let scrapeLoblaw = async () => {
     const browser = await puppeteer.launch({headless: false});
@@ -32,7 +33,12 @@ let scrapeLoblaw = async () => {
             let dayOfMonth = days[i].children[0].children[0].lastElementChild.textContent;
             let startTime = startEnd[i].childNodes[0].textContent;
             let endTime = startEnd[i].childNodes[4].textContent;
-            data.push({dayOfWeek, dayOfMonth, startTime, endTime});
+            var getMonth = function(date) { 
+                months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                return months[date.getMonth()];
+            }            
+            let month = getMonth(new Date());
+            data.push({month, dayOfWeek, dayOfMonth, startTime, endTime});
         }        
         return data;
     })
@@ -50,6 +56,7 @@ else if (args.w == 'loblaw') {
     console.log('Loblaw selected, logging in.');
     scrapeLoblaw().then((value) => {
         console.log(value)
+        data = value;
     });
 }
 else if (args.w == 'foodbasics') {
